@@ -19,6 +19,7 @@ fi
 echo "==> Removing files"
 sudo rm -f /Library/LaunchDaemons/com.securenet.daemon.plist /Library/LaunchAgents/com.securenet.menu.plist
 sudo rm -f /usr/local/bin/securenetctl /var/run/securenet.sock
+sudo rm -rf /Applications/SecureNet.app
 sudo rm -rf "$SUPPORT/bin" "$SUPPORT"/rules-*.conf "$SUPPORT/pf.token"
 
 if [[ "${1:-}" == "--purge" ]]; then

@@ -19,7 +19,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var timer: Timer?
 
     func applicationDidFinishLaunching(_ n: Notification) {
+        // New status items are placed at the far left of the icon area, which on notched MacBooks
+        // with a crowded menu bar means "hidden behind the notch". Default to a spot near the clock
+        // (distance from the right screen edge); a position you choose with ⌘-drag is saved and wins.
+        UserDefaults.standard.register(defaults: ["NSStatusItem Preferred Position SecureNet": 160])
         item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        item.autosaveName = "SecureNet"
         allowItem = NSMenuItem(title: "Allow This Network Until It Changes…", action: #selector(allowOnce), keyEquivalent: "")
         blockItem = NSMenuItem(title: "Block Again", action: #selector(block), keyEquivalent: "")
         recheckItem = NSMenuItem(title: "Re-check Now", action: #selector(recheck), keyEquivalent: "r")

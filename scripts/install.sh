@@ -8,6 +8,7 @@ SUPPORT="/Library/Application Support/SecureNet"
 BIN="$SUPPORT/bin"
 DAEMON_PLIST=/Library/LaunchDaemons/com.securenet.daemon.plist
 AGENT_PLIST=/Library/LaunchAgents/com.securenet.menu.plist
+APP=/Applications/SecureNet.app
 
 if [[ $EUID -eq 0 ]]; then
   echo "Run this as your normal user (not with sudo). It will ask for your password when needed."
@@ -20,7 +21,14 @@ OUT="$ROOT/.build/release"
 
 echo "==> Installing binaries to $BIN"
 sudo mkdir -p "$BIN"
-sudo install -m 755 -o root -g wheel "$OUT/securenetd" "$OUT/securenetctl" "$OUT/SecureNetMenu" "$BIN/"
+sudo install -m 755 -o root -g wheel "$OUT/securenetd" "$OUT/securenetctl" "$BIN/"
+sudo rm -f "$BIN/SecureNetMenu" # older versions installed the menu app here
+
+echo "==> Installing menu bar app to $APP"
+scripts/build-app.sh "$OUT" >/dev/null
+sudo rm -rf "$APP"
+sudo cp -R "$OUT/SecureNet.app" "$APP"
+sudo chown -R root:wheel "$APP"
 sudo mkdir -p /usr/local/bin
 sudo ln -sf "$BIN/securenetctl" /usr/local/bin/securenetctl
 

@@ -6,8 +6,10 @@
     <string>com.securenet.menu</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Library/Application Support/SecureNet/bin/SecureNetMenu</string>
+        <string>/Applications/SecureNet.app/Contents/MacOS/SecureNetMenu</string>
     </array>
+    <key>AssociatedBundleIdentifiers</key>
+    <string>com.securenet.menu</string>
     <key>RunAtLoad</key>
     <true/>
     <!-- Restart if it crashes, but stay quit if you choose Quit. -->
